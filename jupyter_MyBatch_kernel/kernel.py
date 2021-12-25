@@ -1262,9 +1262,9 @@ class BatchKernel(MyKernel):
     implementation = 'jupyter_MyBatch_kernel'
     implementation_version = '1.0'
     language = 'Batch'
-    language_version = '2.X.X'
+    language_version = ''
     language_info = {'name': 'Batch',
-                     'mimetype': 'text/Batch',
+                     'mimetype': 'application/x-bat',
                      'file_extension': '.bat'}
     runfiletype='script'
     banner = "Batch kernel.\n" \
