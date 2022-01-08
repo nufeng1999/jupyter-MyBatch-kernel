@@ -94,17 +94,17 @@ class BatchKernel(MyKernel):
             self.mymagics._logln(""+str(e),3)
         return realpath
 ##do_runcode
-    def do_runcode(self,return_code,fil_ename,magics,code, silent, store_history=True,
+    def do_runcode(self,return_code,file_name,magics,code, silent, store_history=True,
                     user_expressions=None, allow_stdin=True):
         return_code=return_code
-        fil_ename=fil_ename
+        file_name=file_name
         bcancel_exec=False
         retinfo=self.mymagics.get_retinfo()
         retstr=''
         ##代码运行前
-        # self._logln("The process :"+fil_ename)
-        # fil_ename=self.getrealpath(fil_ename)
-        p = self.mymagics.create_jupyter_subprocess([fil_ename]+ magics['_st']['args'],cwd=None,shell=False,env=self.mymagics.addkey2dict(magics,'env'),magics=magics,outencode='GBK')
+        # self._logln("The process :"+file_name)
+        # file_name=self.getrealpath(file_name)
+        p = self.mymagics.create_jupyter_subprocess([file_name]+ magics['_st']['args'],cwd=None,shell=False,env=self.mymagics.addkey2dict(magics,'env'),magics=magics,outencode='GBK')
         #p = self.create_jupyter_subprocess([binary_file.name]+ magics['args'],cwd=None,shell=False)
         #p = self.create_jupyter_subprocess([self.master_path, binary_file.name] + magics['args'],cwd='/tmp',shell=True)
         self.mymagics.g_rtsps[str(p.pid)]=p
@@ -118,34 +118,34 @@ class BatchKernel(MyKernel):
         # self.cleanup_files()
         if p.returncode != 0:
             self.mymagics._logln("Executable exited with code {}".format(p.returncode),2)
-        return bcancel_exec,retinfo,magics, code,fil_ename,retstr
+        return bcancel_exec,retinfo,magics, code,file_name,retstr
 ##do_compile_code
-    def do_compile_code(self,return_code,fil_ename,magics,code, silent, store_history=True,
+    def do_compile_code(self,return_code,file_name,magics,code, silent, store_history=True,
                     user_expressions=None, allow_stdin=True):
         bcancel_exec=False
         retinfo=self.mymagics.get_retinfo()
         retstr=''
-        return bcancel_exec,retinfo,magics, code,fil_ename,retstr
+        return bcancel_exec,retinfo,magics, code,file_name,retstr
 ##do_batch_create_codefile
     def do_create_codefile(self,magics,code, silent, store_history=True,
                     user_expressions=None, allow_stdin=True):
         return_code=0
-        fil_ename=''
+        file_name=''
         bcancel_exec=False
         retinfo=self.mymagics.get_retinfo()
         retstr=''
         
         source_file=self.mymagics.create_codetemp_file(magics,code,suffix='.bat')
         newsrcfilename=source_file.name
-        fil_ename=newsrcfilename
+        file_name=newsrcfilename
         return_code=True
         
-        return bcancel_exec,retinfo,magics, code,fil_ename,retstr
+        return bcancel_exec,retinfo,magics, code,file_name,retstr
 ##do_batch_preexecute
     def do_preexecute(self,code, magics,silent, store_history=True,
                 user_expressions=None, allow_stdin=False):
         bcancel_exec=False
         retinfo=self.mymagics.get_retinfo()
         return_code=0
-        fil_ename=''
+        file_name=''
         return bcancel_exec,retinfo,magics, code
